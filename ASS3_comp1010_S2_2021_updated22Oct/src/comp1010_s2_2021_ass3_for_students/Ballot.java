@@ -1,6 +1,7 @@
-//ID, NAME (For example, "40404040, Janet Kim")
-//Put x inside [] below:
-//[] 	This assignment is entirely my own work and 
+//ID, NAME (4664228, Arnav Singh)
+
+//Put x inside [X] below:
+//[X] 	This assignment is entirely my own work and 
 // 		I have not seen anyone else's code or design
 package comp1010_s2_2021_ass3_for_students;
 
