@@ -55,11 +55,12 @@ public class Ballot {
 	 * @return - true if ballot was successfully filled, false otherwise
 	 */
 	public boolean fill(String name, Timestamp time) {
-		// 
-		// TODO - 5 marks
+		if(name==(candidate) && time != null) {
+			timestamp = time;
+			filled = true;
+			return true;
+		}
 		return false;
-		// git change
-		
 	}
 	
 	/**
