@@ -55,8 +55,14 @@ public class Ballot {
 	 * @return - true if ballot was successfully filled, false otherwise
 	 */
 	public boolean fill(String name, Timestamp time) {
-		if(name==(candidate) && time != null) {
+	// checks if the ballot is already filled
+		if(filled==true) {
+			return false;
+		}
+	// checks if the name is not null and time is not null then sets values for instance variables & returns true
+		if(name != null && time!=null) {
 			timestamp = time;
+			candidate = name;
 			filled = true;
 			return true;
 		}
@@ -78,9 +84,23 @@ public class Ballot {
 	 *         false otherwise
 	 */
 	public boolean isValid(int first, int last, String[] candidates) {
-		//
-		// TODO - 5 marks
+		
+	// checks if the ballot is filled
+		if(filled && timestamp!=null) {
+		// checks if the id is within the range of ID's
+			if(this.id >= first && this.id <=last) {
+			// determines if the candidate selected is within the canidates that can be chosen from
+				for(int i = 0; i < candidates.length; i++) {
+					if(candidates[i] == this.candidate) {
+						return true;
+					}
+				}
+			}
+		}
+		// if conditons are not met, returns false
 		return false;
 		
 	}
 }
+
+
