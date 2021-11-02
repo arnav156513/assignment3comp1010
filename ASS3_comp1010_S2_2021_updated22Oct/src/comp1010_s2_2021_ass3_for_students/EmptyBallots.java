@@ -1,5 +1,4 @@
 //ID, NAME (4664228, Arnav Singh)
-
 //Put x inside [X] below:
 //[X] 	This assignment is entirely my own work and 
 // 		I have not seen anyone else's code or design
@@ -16,9 +15,39 @@ public class EmptyBallots {
 	 * @param n - the number of empty ballots to create in the list
 	 */
 	public EmptyBallots(int n) {
-		//
-		// TODO - 5 marks
+		Ballot emptyBallots = null;
+		Ballot temp;
+		int count = 0;
+		while(head!=null) {
+			if(head.id<n) {
+			if(head.candidate.isBlank()) {
+					temp = new Ballot(head.id, emptyBallots);
+					emptyBallots = temp;
+					count++;
+			}
+			head = head.next;
+		}
+		}
+		System.out.println(count);
 		
+		
+		
+		
+//		Ballot r = head;
+//		Ballot empty = null;
+//		Ballot temp;
+//		
+//		for(int i = 0; i < n; i++) {
+//			while(head!=null) {
+//				if(head.candidate==""||head.candidate==null) {
+//				temp = new Ballot(head.id, empty);
+//				empty = temp;
+//				}
+//				head = head.next;
+//			}
+//			
+//		}
+//		return;
 		
 	}
 	
