@@ -67,64 +67,24 @@ public class EmptyBallots {
 	public boolean isValid() {
 		//
 		// TODO - 5 marks
-		// determines where the empty ballots start
 		if(head==null) {
-			return false;
-		}
-		
-//		if(head.id < head.next.id) {
-//			return true;
-//		}
-		
-		Ballot tester = head;
-		int counterPerson = 0;
-		int idOfEmpty = 0;
-		
-		while(tester!=null) {
-			if(tester.filled==false) {
-				idOfEmpty = tester.id;
-				}
-			tester = tester.next;
-		}
-		
-		int idxTotal = idxCounter(head);
-		int difference = idOfEmpty - idxTotal;
-		if(counterPerson == difference) {
 			return true;
 		}
-		
-//		Ballot current = head;
-//		Ballot beforeEmpty = null;
-//		while(current.filled) {
-//			beforeEmpty = current;
-//			current = current.next;
-//		}
-//		
-//		int counter = 0;
-//		int idxTotal = idxCounter(head);
-//		int difference = beforeEmpty.id - idxTotal;
-//		Ballot looper = beforeEmpty.next;
-//		
-//		// check if the IDs of the previous are correct.
-//		while(looper!=null) {
-//			if(beforeEmpty.id < looper.id) {
-//				counter++;
-//			}
-//			beforeEmpty = looper;
-//			looper = looper.next;
-//		}
-//		
-//		if(counter == difference) {
-//			return true;
-//		}
+		Ballot current = head;
+		int count = 1;
+		while(current!=null) {
+			if(current.next!=null) {
+				if(current.next.id==current.id+1) {
+					count++;
+				}
+			}
+			current = current.next;
+		}
+		int idx = idxCounter(head);
+		if(count == idx) {
+			return true;
+		}
 		return false;
-		
-
-//		for(int i = current.id; i < idxTotal; i++) {
-//			if(10 > 1) {
-//			
-//			}
-//		}
 		
 	}
 	

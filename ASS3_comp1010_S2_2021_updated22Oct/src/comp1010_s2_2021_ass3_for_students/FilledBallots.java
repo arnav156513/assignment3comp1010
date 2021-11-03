@@ -42,9 +42,22 @@ public class FilledBallots {
 	public void addVote(String candidate, EmptyBallots ballots, Timestamp time) {
 		//
 		// TODO - 5 marks
-		
-		
-		
+		Ballot add = new Ballot(ballots.head.id,null);
+		ballots.head = add;
+		add.candidate = candidate;
+		add.timestamp = time;
+		Ballot current = head;
+		if(head==null) {
+			head = add;
+		}
+		while(current!=null) {
+			
+			if(current.next==null) {
+				current.next = add;
+				break;
+			}
+			current = current.next;
+		}
 	}
 	
 	/**
@@ -58,7 +71,15 @@ public class FilledBallots {
 	public int countVoteFor(String candidate) {
 		//
 		// TODO - 5 marks
-		return 0;
+		Ballot current = head;
+		int count = 0;
+		while(current!=null) {
+			if(current.candidate==candidate) {
+				count++;
+			}
+			current = current.next;
+		}
+		return count;
 	}
 	
 	
@@ -71,9 +92,13 @@ public class FilledBallots {
 	 * @return the number of ballots in the list
 	 */
 	public int size() {
-		//
-		// TODO - 5 and 4 marks
-		return -1;
+		Ballot current = head;
+		int count = 0;
+		while(current!=null) {
+				count++;
+			current = current.next;
+		}
+		return count;
 	}
 	
 	
@@ -89,7 +114,55 @@ public class FilledBallots {
 	public boolean isValid(int first, int last, String[] candidates ) {
 		//
 		// TODO - 5 marks
+		if(head==null) {
+			return true;
+		}
 		
+		Ballot current = head;
+		boolean numFirst = false;
+		boolean numLast = false;
+		
+		if(current.id == first) {
+			numFirst = true;
+		}
+		
+		int canYes = 0;
+		int filledIs = 0;
+		int whatNum = 10;
+		
+		Ballot something = head;
+		while(something!=null) {
+			if(something.next==null) {
+				whatNum = something.id;
+			}
+			
+			if(something.filled == true) {
+			filledIs++;
+		}
+			
+			something = something.next;
+			
+		}
+		
+		while(current!=null) {
+			
+			for(int i = 0; i < candidates.length; i++) {
+				if(current.candidate == candidates[i]) {
+					canYes++;
+				}
+//				if(current.filled == true) {
+//					filledIs++;
+//				}
+			}
+			
+			current = current.next;
+		}
+		
+		int size = size();
+		if(size == canYes && size == filledIs && numFirst && numLast ) {
+			return true;
+		}
+
 		return false;
 	}
 	
