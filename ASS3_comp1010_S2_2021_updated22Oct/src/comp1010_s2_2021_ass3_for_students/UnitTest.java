@@ -352,7 +352,7 @@ public class UnitTest {
 	@Timeout(1)
 	@Graded(description = "FilledBallots.isValid()", marks = 5)
 	public void testFilledBallotsIsValid() {
-//		assertTimeoutPreemptively(Duration.ofMillis(1000), () -> {
+		assertTimeoutPreemptively(Duration.ofMillis(1000), () -> {
 			EmptyBallots e;
 			FilledBallots f;
 
@@ -396,7 +396,7 @@ public class UnitTest {
 			
 
 			
-//		});
+		});
 
 		currentMethodName = new Throwable().getStackTrace()[0].getMethodName();
 	}

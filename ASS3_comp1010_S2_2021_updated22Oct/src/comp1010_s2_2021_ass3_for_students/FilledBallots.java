@@ -117,52 +117,49 @@ public class FilledBallots {
 		if(head==null) {
 			return true;
 		}
-		
+		boolean firstID = false;
+		boolean lastID = false;
+
+		int candidateYes = 0;
+		int time = 0;
 		Ballot current = head;
-		boolean numFirst = false;
-		boolean numLast = false;
 		
-		if(current.id == first) {
-			numFirst = true;
-		}
-		
-		int canYes = 0;
-		int filledIs = 0;
-		int whatNum = 10;
-		
-		Ballot something = head;
-		while(something!=null) {
-			if(something.next==null) {
-				whatNum = something.id;
+		if(current.next!=null) {
+			if(current.timestamp.compareTo(current.next.timestamp) ==-1) {
+				time++;
 			}
-			
-			if(something.filled == true) {
-			filledIs++;
-		}
-			
-			something = something.next;
-			
 		}
 		
 		while(current!=null) {
-			
-			for(int i = 0; i < candidates.length; i++) {
-				if(current.candidate == candidates[i]) {
-					canYes++;
+			if(current.next!=null) {
+				if(current.next.id == first ) {
+					firstID = true;
 				}
-//				if(current.filled == true) {
-//					filledIs++;
-//				}
+				
+				if(current.timestamp.compareTo(current.next.timestamp) ==-1) {
+					time++;
+				}
 			}
+			
+			if(current.next==null) {
+				if(current.id==first) {
+					lastID = true;
+				}
+			}
+	
+			for(int i = 0; i < candidates.length; i++)  {
+				if(current.candidate == candidates[i]) {
+				candidateYes++;
+				}
+			}	
 			
 			current = current.next;
 		}
 		
-		int size = size();
-		if(size == canYes && size == filledIs && numFirst && numLast ) {
+		if(size() == candidateYes && lastID && firstID && time == size()) {
 			return true;
 		}
-
+		
 		return false;
 	}
 	
@@ -184,7 +181,11 @@ public class FilledBallots {
 	public void insertBallot(Ballot b) {
 		//
 		// TODO - 5 marks
-
+		Ballot current = head;
+		// insert at idx where idx is by timestamp
+		
+		
+		
 	}
 	
 	/**
