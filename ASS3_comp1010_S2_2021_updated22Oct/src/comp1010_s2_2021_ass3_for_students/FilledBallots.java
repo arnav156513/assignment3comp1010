@@ -181,10 +181,51 @@ public class FilledBallots {
 	public void insertBallot(Ballot b) {
 		//
 		// TODO - 5 marks
-		Ballot current = head;
-		// insert at idx where idx is by timestamp
+		Timestamp bTime = b.timestamp;
+		boolean currentIdx = false;
 		
+		// init shit 
+		Ballot prev = null;
+		Ballot current = null;
+		Ballot nextNull = head;
 		
+		// first case check, where if there is a list of 1 thing then it does stuff
+		if(head.next==null) {
+			if(bTime.compareTo(head.timestamp)==1 || bTime.compareTo(head.timestamp)==0) {
+				head.next=b;
+			} else {
+				head = b; 
+				b.next = nextNull;
+			}
+		} 
+		/*
+		 * init prev to be the first value
+		 * init current to be the next value after prev
+		 */
+		else {
+			prev = head;
+			current = prev.next;
+		}
+		
+		// standard while loop
+		while(prev!=null) {
+			// checks the timestamp, to whether or not its in the middle of two values
+			if(current!=null) {
+				if(bTime.compareTo(prev.timestamp) == 1 && bTime.compareTo(prev.next.timestamp)==-1) {
+					currentIdx = true;
+				}
+//				if(bTime.compareTo(prev.timestamp)==0 && bTime.compareTo(prev.next.timestamp)==-1) {
+////					currentIdx = true;
+//				}
+			}
+			// if the timestamp is found then the ballot b is inserted
+			if(currentIdx) {
+				prev.next = b;
+				b.next = current;
+			}
+			
+			prev = prev.next;
+		}
 		
 	}
 	
@@ -202,6 +243,17 @@ public class FilledBallots {
 	public boolean removeLateBallots(Timestamp t) {
 		//
 		// TODO - 5 marks
+		
+		Ballot current = head;
+		while(current!=null) {
+			if(current.timestamp.compareTo(t)==-1) {
+				current = null;
+				
+				return true;
+			}
+			current = current.next;
+		}
+		
 		return false;
 	}
 	
