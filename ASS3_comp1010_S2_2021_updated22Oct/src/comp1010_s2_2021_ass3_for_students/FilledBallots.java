@@ -181,50 +181,81 @@ public class FilledBallots {
 	public void insertBallot(Ballot b) {
 		//
 		// TODO - 5 marks
-		Timestamp bTime = b.timestamp;
-		boolean currentIdx = false;
-		
-		// init shit 
-		Ballot prev = null;
-		Ballot current = null;
-		Ballot nextNull = head;
-		
-		// first case check, where if there is a list of 1 thing then it does stuff
-		if(head.next==null) {
-			if(bTime.compareTo(head.timestamp)==1 || bTime.compareTo(head.timestamp)==0) {
-				head.next=b;
-			} else {
-				head = b; 
-				b.next = nextNull;
-			}
-		} 
-		/*
-		 * init prev to be the first value
-		 * init current to be the next value after prev
-		 */
-		else {
-			prev = head;
-			current = prev.next;
-		}
-		
-		// standard while loop
-		while(prev!=null) {
-			// checks the timestamp, to whether or not its in the middle of two values
-			if(current!=null) {
-				if(bTime.compareTo(prev.timestamp) == 1 && bTime.compareTo(prev.next.timestamp)==-1) {
-					currentIdx = true;
-				}
-//				if(bTime.compareTo(prev.timestamp)==0 && bTime.compareTo(prev.next.timestamp)==-1) {
-////					currentIdx = true;
+//		Timestamp bTime = b.timestamp;
+//		boolean currentIdx = false;
+//		
+//		// init shit 
+//		Ballot prev = null;
+//		Ballot current = null;
+//		Ballot nextNull = head;
+//		
+//		// first case check, where if there is a list of 1 thing then it does stuff
+//		if(head.next==null) {
+//			if(bTime.compareTo(head.timestamp)==1 || bTime.compareTo(head.timestamp)==0) {
+//				head.next=b;
+//			} else {
+//				head = b; 
+//				b.next = nextNull;
+//			}
+//		} 
+//		/*
+//		 * init prev to be the first value
+//		 * init current to be the next value after prev
+//		 */
+//		else {
+//			prev = head;
+//			current = prev.next;
+//		}
+//		
+//		// standard while loop
+//		while(prev!=null) {
+//			// checks the timestamp, to whether or not its in the middle of two values
+//			if(current!=null) {
+//				if(bTime.compareTo(prev.timestamp) == 1 && bTime.compareTo(prev.next.timestamp)==-1) {
+//					currentIdx = true;
 //				}
+////				if(bTime.compareTo(prev.timestamp)==0 && bTime.compareTo(prev.next.timestamp)==-1) {
+//////					currentIdx = true;
+////				}
+//			}
+//			// if the timestamp is found then the ballot b is inserted
+//			if(currentIdx) {
+//				prev.next = b;
+//				b.next = current;
+//			}
+//			
+//			prev = prev.next;
+//		}
+		
+		
+		
+		Ballot current = head;
+		Ballot after = head.next;
+		Timestamp bTime = b.timestamp;
+		
+//		if(after==null) {
+//			if(current.timestamp.compareTo(bTime)==-1 || current.timestamp.compareTo(bTime)==0) {
+//				current.next=b;
+//			} else {
+//				head = b; 
+//				b.next = after;
+//			}
+//		}
+		
+		while(after!=null) {
+			if(current.timestamp.compareTo(bTime)==-1 && after.timestamp.compareTo(bTime)==1) {
+//				Ballot temp = new Ballot(10,null);
+				
+				current = after;
+				current.next = b;
+				
 			}
-			// if the timestamp is found then the ballot b is inserted
-			if(currentIdx) {
-				prev.next = b;
-				b.next = current;
-			}
-			
-			prev = prev.next;
+//			if(current.timestamp.compareTo(bTime)==0 && after.timestamp.compareTo(bTime)==1) {
+//				current.next = b;
+//				b.next = after;
+//				
+//			}
+			after = after.next;
 		}
 		
 	}
