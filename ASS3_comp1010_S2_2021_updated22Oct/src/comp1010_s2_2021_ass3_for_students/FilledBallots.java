@@ -191,15 +191,13 @@ public class FilledBallots {
 			head = b;
 		}
 		
-		// start case
-//		if(head.next==null) {
-//			if(// change this to the timestamp stuff) {
-//				head.next=b;
-//			} else {
-//				head = b; 
-//				b.next = nextNull;
-//			}
-//		}
+		if(head.timestamp.compareTo(bTime)==1) {
+			Ballot temp = new Ballot (0, head);
+			temp = b;
+			temp.next = head;
+			
+			head = temp;
+		}
 		
 		while(current!=null) {
 			if(prev.timestamp.compareTo(bTime)==-1 && current.timestamp.compareTo(bTime)==1 
@@ -218,109 +216,7 @@ public class FilledBallots {
 		}
 		
 		
-		
-//		Timestamp bTime = b.timestamp;
-//		boolean currentIdx = false;
-//		
-//		// init shit 
-//		Ballot prev = null;
-//		Ballot current = null;
-//		Ballot nextNull = head;
-//		
-//		// first case check, where if there is a list of 1 thing then it does stuff
-//		if(head.next==null) {
-//			if(bTime.compareTo(head.timestamp)==1 || bTime.compareTo(head.timestamp)==0) {
-//				head.next=b;
-//			} else {
-//				head = b; 
-//				b.next = nextNull;
-//			}
-//		} 
-//		/*
-//		 * init prev to be the first value
-//		 * init current to be the next value after prev
-//		 */
-//		else {
-//			prev = head;
-//			current = prev.next;
-//		}
-//		
-//		// standard while loop
-//		while(prev!=null) {
-//			// checks the timestamp, to whether or not its in the middle of two values
-//			if(current!=null) {
-//				if(bTime.compareTo(prev.timestamp) == 1 && bTime.compareTo(prev.next.timestamp)==-1) {
-//					currentIdx = true;
-//				}
-////				if(bTime.compareTo(prev.timestamp)==0 && bTime.compareTo(prev.next.timestamp)==-1) {
-//////					currentIdx = true;
-////				}
-//			}
-//			// if the timestamp is found then the ballot b is inserted
-//			if(currentIdx) {
-//				prev.next = b;
-//				b.next = current;
-//			}
-//			
-//			prev = prev.next;
-//		}
-		
-		
-//		
-//		Ballot current = head;
-//		Ballot after = current.next;
-//		Timestamp bTime = b.timestamp;
-		
-//		if(after==null) {
-//			if(current.timestamp.compareTo(bTime)==-1 || current.timestamp.compareTo(bTime)==0) {
-//				current.next=b;
-//			} else {
-//				head = b; 
-//				b.next = after;
-//			}
-//		}
-//		int size = size();
-//		int pos = 0;
-//		int counter =0;
-//		int difference = size-pos;
-//		
-//		while(after!=null) {
-//			counter++;
-//			if(current.timestamp.compareTo(bTime)==-1 && after.timestamp.compareTo(bTime)==1) {
-//				pos=counter;
-//				Ballot afterNext = after;
-//				for(int i = pos; i < 0; i--) {
-//					Ballot temp = new Ballot (afterNext.id, afterNext.next);
-//					temp.candidate = afterNext.candidate;
-//					temp.filled = afterNext.filled;
-//					temp.timestamp = afterNext.timestamp;
-//					b.next = temp;
-//					afterNext = afterNext.next;
-//					b = b.next;
-//				}
-				
-//				Ballot temp = after;
-//				while(temp!=null) {
-//					b.next = temp;
-//					temp = temp.next;
-//				}
-//				
-//				current.next = b;
-//				
-//			}
-			
-			
-//			if(current.timestamp.compareTo(bTime)==0 && after.timestamp.compareTo(bTime)==1) {
-//				current.next = b;
-//				b.next = after;
-//				
-//			}
-			
-			
-			
-//			after = after.next;
-//		}
-//		
+
 	}
 	
 	/**
