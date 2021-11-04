@@ -293,15 +293,50 @@ public class FilledBallots {
 	public boolean removeBlankBallots() {
 		//
 		// TODO - 5 marks
+		
+		if(head==null) {
+			return false;
+		}
+		
 		int size = size();
 		Ballot current = head.next;
 		Ballot prev = head;
-		while(current!=null) {
-			
-			
+		boolean changedStuff = false;
+		
+		// first case
+		
+		if(head.candidate.isBlank()) {
+			Ballot temp = new Ballot (0, null);
+			temp = head.next;
+			head = temp;
+			changedStuff = true;
 		}
-		Ballot temp = new Ballot(0, null);
-		temp = prev;
+		
+		while(current!=null) {
+			Ballot temp = new Ballot(0, null);
+				temp = prev;
+			if(current.candidate.isBlank()) {
+				temp.next = current.next;
+				
+				current = temp;
+				changedStuff = true;
+			}
+			
+//			if(current.next==null) {
+//				if(current.candidate.isBlank()) {
+//					current = null;
+//					return true;
+//				}
+//			}
+			
+			prev = current;
+			current = current.next;
+		}
+		
+		if(changedStuff) {
+			return true;
+		}
+		
 		return false;
 	}
 	
