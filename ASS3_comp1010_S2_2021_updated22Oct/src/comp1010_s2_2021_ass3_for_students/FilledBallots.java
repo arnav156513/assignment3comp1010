@@ -5,6 +5,8 @@
 // 		I have not seen anyone else's code or design
 package comp1010_s2_2021_ass3_for_students;
 
+
+
 public class FilledBallots {
 
 	public Ballot head;
@@ -184,13 +186,9 @@ public class FilledBallots {
 		Timestamp bTime = b.timestamp;
 		Ballot current = head.next;
 		Ballot prev = head;
-		Ballot nextNull = head;
-		 
-		// null case
-		if(head==null) {
-			head = b;
-		}
+
 		
+		// first case
 		if(head.timestamp.compareTo(bTime)==1) {
 			Ballot temp = new Ballot (0, head);
 			temp = b;
@@ -200,6 +198,7 @@ public class FilledBallots {
 		}
 		
 		while(current!=null) {
+			// middle case
 			if(prev.timestamp.compareTo(bTime)==-1 && current.timestamp.compareTo(bTime)==1 
 					|| prev.timestamp.compareTo(bTime)==0 && current.timestamp.compareTo(bTime)==1) {
 				b.next = current;
@@ -211,6 +210,7 @@ public class FilledBallots {
 					current.next = b;
 				}
 			}
+			// increment
 			prev = current;
 			current = current.next;
 		}
@@ -232,16 +232,43 @@ public class FilledBallots {
 	 */
 	public boolean removeLateBallots(Timestamp t) {
 		//
-		// TODO - 5 marks
+		// TODO - 5 marks	
+		// atleast one value, meaning next is satisfied i think
+		Ballot current = head.next;
+		Ballot prev = head;
+		int size = size();
+		boolean changed = false;
 		
-		Ballot current = head;
+		// second value is null, therefore one value in the list
+		if(head.timestamp.compareTo(t)==1) {
+			head = null;
+			return true;
+		}
+		
 		while(current!=null) {
-			if(current.timestamp.compareTo(t)==-1) {
-				current = null;
-				
-				return true;
+			Ballot temp = new Ballot(0, null);
+			temp = prev;
+			
+			if(current.timestamp.compareTo(t)==1) {
+				temp.next = current.next;
+				current = temp;
+				changed = true;
 			}
+			
+			if(current.next==null) {
+				if(current.timestamp.compareTo(t)==1) {
+					current = null;
+					return true;
+				}
+			}
+			
+			// increment
+			prev = current;
 			current = current.next;
+		}
+		
+		if(changed) {
+			return true;
 		}
 		
 		return false;
@@ -266,7 +293,15 @@ public class FilledBallots {
 	public boolean removeBlankBallots() {
 		//
 		// TODO - 5 marks
-		
+		int size = size();
+		Ballot current = head.next;
+		Ballot prev = head;
+		while(current!=null) {
+			
+			
+		}
+		Ballot temp = new Ballot(0, null);
+		temp = prev;
 		return false;
 	}
 	
