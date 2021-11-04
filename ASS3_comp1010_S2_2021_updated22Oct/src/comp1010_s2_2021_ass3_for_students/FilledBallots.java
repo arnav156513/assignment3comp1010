@@ -230,7 +230,7 @@ public class FilledBallots {
 		
 		
 		Ballot current = head;
-		Ballot after = head.next;
+		Ballot after = current.next;
 		Timestamp bTime = b.timestamp;
 		
 //		if(after==null) {
@@ -244,9 +244,8 @@ public class FilledBallots {
 		
 		while(after!=null) {
 			if(current.timestamp.compareTo(bTime)==-1 && after.timestamp.compareTo(bTime)==1) {
-//				Ballot temp = new Ballot(10,null);
 				
-				current = after;
+				Ballot temp = new Ballot(b.id, after);
 				current.next = b;
 				
 			}
