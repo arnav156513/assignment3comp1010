@@ -181,6 +181,44 @@ public class FilledBallots {
 	public void insertBallot(Ballot b) {
 		//
 		// TODO - 5 marks
+		Timestamp bTime = b.timestamp;
+		Ballot current = head.next;
+		Ballot prev = head;
+		Ballot nextNull = head;
+		 
+		// null case
+		if(head==null) {
+			head = b;
+		}
+		
+		// start case
+//		if(head.next==null) {
+//			if(// change this to the timestamp stuff) {
+//				head.next=b;
+//			} else {
+//				head = b; 
+//				b.next = nextNull;
+//			}
+//		}
+		
+		while(current!=null) {
+			if(prev.timestamp.compareTo(bTime)==-1 && current.timestamp.compareTo(bTime)==1 
+					|| prev.timestamp.compareTo(bTime)==0 && current.timestamp.compareTo(bTime)==1) {
+				b.next = current;
+				prev.next = b;
+			}
+			// end case
+			if(current.next==null) {
+				if(current.timestamp.compareTo(bTime)==-1) {
+					current.next = b;
+				}
+			}
+			prev = current;
+			current = current.next;
+		}
+		
+		
+		
 //		Timestamp bTime = b.timestamp;
 //		boolean currentIdx = false;
 //		
@@ -228,10 +266,10 @@ public class FilledBallots {
 //		}
 		
 		
-		
-		Ballot current = head;
-		Ballot after = current.next;
-		Timestamp bTime = b.timestamp;
+//		
+//		Ballot current = head;
+//		Ballot after = current.next;
+//		Timestamp bTime = b.timestamp;
 		
 //		if(after==null) {
 //			if(current.timestamp.compareTo(bTime)==-1 || current.timestamp.compareTo(bTime)==0) {
@@ -241,22 +279,48 @@ public class FilledBallots {
 //				b.next = after;
 //			}
 //		}
-		
-		while(after!=null) {
-			if(current.timestamp.compareTo(bTime)==-1 && after.timestamp.compareTo(bTime)==1) {
+//		int size = size();
+//		int pos = 0;
+//		int counter =0;
+//		int difference = size-pos;
+//		
+//		while(after!=null) {
+//			counter++;
+//			if(current.timestamp.compareTo(bTime)==-1 && after.timestamp.compareTo(bTime)==1) {
+//				pos=counter;
+//				Ballot afterNext = after;
+//				for(int i = pos; i < 0; i--) {
+//					Ballot temp = new Ballot (afterNext.id, afterNext.next);
+//					temp.candidate = afterNext.candidate;
+//					temp.filled = afterNext.filled;
+//					temp.timestamp = afterNext.timestamp;
+//					b.next = temp;
+//					afterNext = afterNext.next;
+//					b = b.next;
+//				}
 				
-				Ballot temp = new Ballot(b.id, after);
-				current.next = b;
-				
-			}
+//				Ballot temp = after;
+//				while(temp!=null) {
+//					b.next = temp;
+//					temp = temp.next;
+//				}
+//				
+//				current.next = b;
+//				
+//			}
+			
+			
 //			if(current.timestamp.compareTo(bTime)==0 && after.timestamp.compareTo(bTime)==1) {
 //				current.next = b;
 //				b.next = after;
 //				
 //			}
-			after = after.next;
-		}
-		
+			
+			
+			
+//			after = after.next;
+//		}
+//		
 	}
 	
 	/**
