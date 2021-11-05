@@ -94,6 +94,7 @@ public class FilledBallots {
 	 * @return the number of ballots in the list
 	 */
 	public int size() {
+		
 		Ballot current = head;
 		int count = 0;
 		while(current!=null) {
@@ -101,6 +102,9 @@ public class FilledBallots {
 			current = current.next;
 		}
 		return count;
+		
+		
+		
 	}
 	
 	
@@ -239,20 +243,26 @@ public class FilledBallots {
 		int size = size();
 		boolean changed = false;
 		
-		// second value is null, therefore one value in the list
+		// checks first value in the list 
 		if(head.timestamp.compareTo(t)==1) {
 			head = null;
 			return true;
 		}
 		
-		while(current!=null) {
-			Ballot temp = new Ballot(0, null);
-			temp = prev;
+		while(current!=null) {			
 			
+			// determines if current timestamp is bigger than inserted timestamp 
+			// changes the list so that 
 			if(current.timestamp.compareTo(t)==1) {
-				temp.next = current.next;
-				current = temp;
+//				temp.next = current.next;
+//				current = temp;
+				prev.next = current.next;
+				current = prev;
 				changed = true;
+				
+				head.next = head.next.next;
+				
+				
 			}
 			
 			if(current.next==null) {
@@ -294,50 +304,71 @@ public class FilledBallots {
 		//
 		// TODO - 5 marks
 		
+		// empty list
 		if(head==null) {
 			return false;
 		}
 		
+		// init variables 
 		int size = size();
 		Ballot current = head.next;
 		Ballot prev = head;
 		boolean changedStuff = false;
 		
-		// first case
-		
-		if(head.candidate.isBlank()) {
-			Ballot temp = new Ballot (0, null);
-			temp = head.next;
-			head = temp;
-			changedStuff = true;
+		// if the head.next is null and the entire thing is 1 long
+		if(head.next==null) {
+			if(head.candidate==null || head.candidate.isBlank()) {
+				head = null;
+				return true;
+			}
 		}
 		
 		while(current!=null) {
-			Ballot temp = new Ballot(0, null);
-				temp = prev;
-			if(current.candidate.isBlank()) {
-				temp.next = current.next;
+			if(current.candidate==null || current.candidate.isBlank()) {
+				//delete stuff logic 
 				
-				current = temp;
+				prev.next = current.next;
+				current = prev.next;
+				// something has been deleted then true
 				changedStuff = true;
 			}
-			
-//			if(current.next==null) {
-//				if(current.candidate.isBlank()) {
-//					current = null;
-//					return true;
-//				}
-//			}
-			
+			// increment
 			prev = current;
-			current = current.next;
+			current=current.next;
 		}
 		
 		if(changedStuff) {
 			return true;
 		}
 		
+		
+//		// init variables 
+//		int size = size();
+//		Ballot current = head.next;
+//		Ballot prev = head;
+//		boolean changedStuff = false;
+//		
+//		for(int i = 0; i < size; i++) {
+//			
+//			if(current.candidate==null || current.candidate.isBlank()) {
+//				current = delNodes(prev,current);
+//				changedStuff = true;
+//			}
+//			
+//		}
+//		
+//		if(changedStuff) {
+//			return true;
+//		}
+		
 		return false;
+	}
+	
+	// helper func to remove ballots
+	public static Ballot delNodes(Ballot p, Ballot c) {
+		p.next = c.next;
+		c = p.next;
+		return c;
 	}
 	
 	/**
@@ -358,6 +389,54 @@ public class FilledBallots {
 	public boolean removeInvalidBallots(String[] candidates) {
 		//
 		// TODO - 5 marks
+		
+		// when head is null & head.next doesnt exist
+		if(head==null) {
+			return false;
+		}
+		
+		// init var 
+		Ballot current = head.next;
+		Ballot prev = head;
+		int iterator = 0;
+		boolean removed = false;
+		
+		
+		while(current!=null) {
+			// finds if a candidate is not a candidate in the list of candidates
+			for(int i = 0; i < candidates.length; i++) {
+				if(current.candidate.equals(candidates[i])) {
+					iterator++;
+				}
+			}
+			// when they do equal only one candidate then the difference between iterator and the length of the candidate list is 1
+			if(iterator<1) {
+				// says it is removed
+				removed = true;
+				
+				// skipping logic
+				prev.next = current.next;
+				current = prev;
+				
+				
+				
+				// resets iterator
+				iterator = 0;
+				
+				// resets to the top of list;
+				
+			}
+			
+			// increment the value
+			prev = current;
+			current = current.next;
+		}
+		
+		
+		if(removed) {
+			return true;
+		}
+		
 		return false;
 	}
 	
