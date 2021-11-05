@@ -324,11 +324,11 @@ public class FilledBallots {
 		}
 		
 		while(current!=null) {
-			if(current.candidate==null || current.candidate.isBlank()) {
+			if(prev.candidate==null || prev.candidate.isBlank()) {
 				//delete stuff logic 
 				
 				prev.next = current.next;
-				current = prev.next;
+				current = prev;
 				// something has been deleted then true
 				changedStuff = true;
 			}
