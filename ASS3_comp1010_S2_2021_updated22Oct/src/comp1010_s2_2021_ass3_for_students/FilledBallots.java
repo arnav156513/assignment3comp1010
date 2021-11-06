@@ -258,10 +258,7 @@ public class FilledBallots {
 //				current = temp;
 				prev.next = current.next;
 				current = prev;
-				changed = true;
-				
-				head.next = head.next.next;
-				
+				changed = true;				
 				
 			}
 			
@@ -310,28 +307,24 @@ public class FilledBallots {
 		}
 		
 		// init variables 
-		int size = size();
 		Ballot current = head.next;
 		Ballot prev = head;
 		boolean changedStuff = false;
 		
-		// if the head.next is null and the entire thing is 1 long
-		if(head.next==null) {
-			if(head.candidate==null || head.candidate.isBlank()) {
-				head = null;
-				return true;
-			}
+		while(head!=null && (head.candidate==null || head.candidate.isEmpty())) {
+			head = head.next;
+			changedStuff = true;
 		}
 		
 		while(current!=null) {
-			if(prev.candidate==null || prev.candidate.isBlank()) {
+			if(current.candidate!=null && current.candidate.isEmpty()) {
 				//delete stuff logic 
-				
 				prev.next = current.next;
 				current = prev;
 				// something has been deleted then true
 				changedStuff = true;
 			}
+			
 			// increment
 			prev = current;
 			current=current.next;
@@ -341,34 +334,7 @@ public class FilledBallots {
 			return true;
 		}
 		
-		
-//		// init variables 
-//		int size = size();
-//		Ballot current = head.next;
-//		Ballot prev = head;
-//		boolean changedStuff = false;
-//		
-//		for(int i = 0; i < size; i++) {
-//			
-//			if(current.candidate==null || current.candidate.isBlank()) {
-//				current = delNodes(prev,current);
-//				changedStuff = true;
-//			}
-//			
-//		}
-//		
-//		if(changedStuff) {
-//			return true;
-//		}
-		
 		return false;
-	}
-	
-	// helper func to remove ballots
-	public static Ballot delNodes(Ballot p, Ballot c) {
-		p.next = c.next;
-		c = p.next;
-		return c;
 	}
 	
 	/**
